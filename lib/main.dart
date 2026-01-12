@@ -1,10 +1,11 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/utils.dart';
+import 'package:ditonton/features/movie/presentation/bloc/movie-detail/movie_detail_bloc.dart';
 import 'package:ditonton/features/movie/presentation/bloc/now-playing/now_playing_bloc.dart';
 import 'package:ditonton/features/movie/presentation/bloc/popular-movies/popular_movies_bloc.dart';
 import 'package:ditonton/features/movie/presentation/bloc/top-rated-movies/top_rated_bloc.dart';
 import 'package:ditonton/features/movie/presentation/pages/about_page.dart';
-import 'package:ditonton/features/movie/presentation/pages/home_page.dart';
+import 'package:ditonton/features/main_page.dart';
 import 'package:ditonton/features/movie/presentation/pages/movie_detail_page.dart';
 import 'package:ditonton/features/movie/presentation/pages/popular_movies_page.dart';
 import 'package:ditonton/features/movie/presentation/pages/search_page.dart';
@@ -15,7 +16,6 @@ import 'package:ditonton/features/tv-series/presentation/pages/search_tv_series_
 import 'package:ditonton/features/tv-series/presentation/pages/top_rated_tv_series_page.dart';
 import 'package:ditonton/features/tv-series/presentation/pages/tv_series_detail_page.dart';
 import 'package:ditonton/features/tv-series/presentation/pages/watchlist_tv_series_page.dart';
-import 'package:ditonton/features/movie/presentation/bloc/movie_detail_notifier.dart';
 import 'package:ditonton/features/movie/presentation/bloc/movie_search_notifier.dart';
 import 'package:ditonton/features/movie/presentation/bloc/watchlist_movie_notifier.dart';
 import 'package:ditonton/features/tv-series/presentation/bloc/popular_tv_series_notifier.dart';
@@ -40,9 +40,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => di.locator<MovieDetailNotifier>(),
-        ),
         ChangeNotifierProvider(
           create: (_) => di.locator<MovieSearchNotifier>(),
         ),
@@ -73,6 +70,7 @@ class MyApp extends StatelessWidget {
           BlocProvider(create: (context) => di.locator<NowPlayingBloc>()),
           BlocProvider(create: (context) => di.locator<TopRatedBloc>()),
           BlocProvider(create: (context) => di.locator<PopularMoviesBloc>()),
+          BlocProvider(create: (context) => di.locator<MovieDetailBloc>()),
         ],
         child: MaterialApp(
           title: 'Ditonton',
@@ -83,12 +81,12 @@ class MyApp extends StatelessWidget {
             textTheme: kTextTheme,
             drawerTheme: kDrawerTheme,
           ),
-          home: HomePage(),
+          home: MainPage(),
           navigatorObservers: [routeObserver],
           onGenerateRoute: (RouteSettings settings) {
             switch (settings.name) {
-              case '/home':
-                return MaterialPageRoute(builder: (_) => HomePage());
+              case '/main':
+                return MaterialPageRoute(builder: (_) => MainPage());
               case PopularMoviesPage.ROUTE_NAME:
                 return CupertinoPageRoute(builder: (_) => PopularMoviesPage());
               case TopRatedMoviesPage.ROUTE_NAME:
