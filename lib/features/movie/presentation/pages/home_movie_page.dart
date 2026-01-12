@@ -9,14 +9,13 @@ import 'package:ditonton/features/movie/presentation/pages/popular_movies_page.d
 import 'package:ditonton/features/movie/presentation/pages/top_rated_movies_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:provider/provider.dart';
 
-class HomeMovieContent extends StatefulWidget {
+class HomeMoviePage extends StatefulWidget {
   @override
-  _HomeMovieContentState createState() => _HomeMovieContentState();
+  _HomeMoviePageState createState() => _HomeMoviePageState();
 }
 
-class _HomeMovieContentState extends State<HomeMovieContent> {
+class _HomeMoviePageState extends State<HomeMoviePage> {
   @override
   void initState() {
     super.initState();
