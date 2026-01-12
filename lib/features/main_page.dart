@@ -1,21 +1,21 @@
 import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/features/movie/presentation/pages/about_page.dart';
 import 'package:ditonton/features/movie/presentation/pages/home_movie_page.dart';
-import 'package:ditonton/features/movie/presentation/pages/home_tv_series_content.dart';
+import 'package:ditonton/features/tv-series/presentation/pages/home_tv_series_page.dart';
 import 'package:ditonton/features/movie/presentation/pages/search_page.dart';
 import 'package:ditonton/features/tv-series/presentation/pages/search_tv_series_page.dart';
 import 'package:ditonton/features/movie/presentation/pages/watchlist_movies_page.dart';
 import 'package:ditonton/features/tv-series/presentation/pages/watchlist_tv_series_page.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
-  static const ROUTE_NAME = '/home';
+class MainPage extends StatefulWidget {
+  static const ROUTE_NAME = '/main';
 
   @override
-  _HomePageState createState() => _HomePageState();
+  _MainPageState createState() => _MainPageState();
 }
 
-class _HomePageState extends State<HomePage>
+class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -44,9 +44,7 @@ class _HomePageState extends State<HomePage>
               ),
               accountName: Text('Ditonton'),
               accountEmail: Text('ditonton@dicoding.com'),
-              decoration: BoxDecoration(
-                color: Colors.grey.shade900,
-              ),
+              decoration: BoxDecoration(color: Colors.grey.shade900),
             ),
             ListTile(
               leading: Icon(Icons.movie),
@@ -100,29 +98,20 @@ class _HomePageState extends State<HomePage>
               }
             },
             icon: Icon(Icons.search),
-          )
+          ),
         ],
         bottom: TabBar(
           controller: _tabController,
           indicatorColor: kMikadoYellow,
           tabs: [
-            Tab(
-              icon: Icon(Icons.movie),
-              text: 'Movies',
-            ),
-            Tab(
-              icon: Icon(Icons.tv),
-              text: 'TV Series',
-            ),
+            Tab(icon: Icon(Icons.movie), text: 'Movies'),
+            Tab(icon: Icon(Icons.tv), text: 'TV Series'),
           ],
         ),
       ),
       body: TabBarView(
         controller: _tabController,
-        children: [
-          HomeMovieContent(),
-          HomeTvSeriesContent(),
-        ],
+        children: [HomeMoviePage(), HomeTvSeriesContent()],
       ),
     );
   }
