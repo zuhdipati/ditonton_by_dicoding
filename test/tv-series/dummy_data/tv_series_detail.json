@@ -1,0 +1,54 @@
+{
+  "adult": false,
+  "backdrop_path": "/mAJ84W6I8I272Da87qplS2Dp9ST.jpg",
+  "episode_run_time": [
+    30
+  ],
+  "first_air_date": "2023-01-23",
+  "genres": [
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    }
+  ],
+  "id": 202250,
+  "name": "Dirty Linen",
+  "number_of_episodes": 153,
+  "number_of_seasons": 2,
+  "original_language": "tl",
+  "original_name": "Dirty Linen",
+  "overview": "To exact vengeance, a young woman infiltrates the household of an influential family as a housemaid to expose their dirty secrets. However, love will get in the way of her revenge plot.",
+  "popularity": 4.3211,
+  "poster_path": "/fiK3u7oQb2Nsi2kuR73RRyIIGDD.jpg",
+  "seasons": [
+    {
+      "air_date": "2023-01-23",
+      "episode_count": 73,
+      "id": 294181,
+      "name": "Season 1",
+      "overview": "",
+      "poster_path": "/pVBxYfshGajQ600OKv8K4y8TI0K.jpg",
+      "season_number": 1,
+      "vote_average": 8.5
+    },
+    {
+      "air_date": "2023-05-08",
+      "episode_count": 80,
+      "id": 338907,
+      "name": "Season 2",
+      "overview": "",
+      "poster_path": "/8o5v2GwX7ko0q3Vq5BXTt3WFfZo.jpg",
+      "season_number": 2,
+      "vote_average": 0.0
+    }
+  ],
+  "status": "Ended",
+  "tagline": "",
+  "type": "Scripted",
+  "vote_average": 6.6,
+  "vote_count": 106
+}
