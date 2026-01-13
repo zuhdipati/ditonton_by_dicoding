@@ -33,12 +33,12 @@ import 'package:ditonton/features/tv-series/domain/usecases/get_watchlist_tv_ser
 import 'package:ditonton/features/tv-series/domain/usecases/remove_watchlist_tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/save_watchlist_tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/search_tv_series.dart';
-import 'package:ditonton/features/tv-series/presentation/bloc/popular_tv_series_notifier.dart';
-import 'package:ditonton/features/tv-series/presentation/bloc/top_rated_tv_series_notifier.dart';
-import 'package:ditonton/features/tv-series/presentation/bloc/tv_series_detail_notifier.dart';
-import 'package:ditonton/features/tv-series/presentation/bloc/tv_series_list_notifier.dart';
-import 'package:ditonton/features/tv-series/presentation/bloc/tv_series_search_notifier.dart';
-import 'package:ditonton/features/tv-series/presentation/bloc/watchlist_tv_series_notifier.dart';
+import 'package:ditonton/features/tv-series/presentation/bloc/airing-today/airing_today_bloc.dart';
+import 'package:ditonton/features/tv-series/presentation/bloc/popular-tv-series/popular_tv_series_bloc.dart';
+import 'package:ditonton/features/tv-series/presentation/bloc/search-tv-series/search_tv_series_bloc.dart';
+import 'package:ditonton/features/tv-series/presentation/bloc/top-rated-tv-series/top_rated_tv_series_bloc.dart';
+import 'package:ditonton/features/tv-series/presentation/bloc/tv-series-detail/tv_series_detail_bloc.dart';
+import 'package:ditonton/features/tv-series/presentation/bloc/watchlist-tv-series/watchlist_tv_series_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
 
@@ -92,33 +92,19 @@ void init() {
   // movie database helper
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
-  // tv series providers
-  locator.registerFactory(
-    () => TvSeriesListNotifier(
-      getAiringTodayTvSeries: locator(),
-      getPopularTvSeries: locator(),
-      getTopRatedTvSeries: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvSeriesDetailNotifier(
+  // tv series bloc
+  locator.registerFactory(() => AiringTodayBloc(getAiringTodayTvSeries: locator()));
+  locator.registerFactory(() => PopularTvSeriesBloc(getPopularTvSeries: locator()));
+  locator.registerFactory(() => TopRatedTvSeriesBloc(getTopRatedTvSeries: locator()));
+  locator.registerFactory(() => SearchTvSeriesBloc(searchTvSeries: locator()));
+  locator.registerFactory(() => WatchlistTvSeriesBloc(getWatchlistTvSeries: locator()));
+  locator.registerFactory(() => TvSeriesDetailBloc(
       getTvSeriesDetail: locator(),
       getTvSeriesRecommendations: locator(),
       getWatchlistTvSeriesStatus: locator(),
       saveWatchlistTvSeries: locator(),
       removeWatchlistTvSeries: locator(),
-    ),
-  );
-  locator.registerFactory(
-    () => TvSeriesSearchNotifier(searchTvSeries: locator()),
-  );
-  locator.registerFactory(() => PopularTvSeriesNotifier(locator()));
-  locator.registerFactory(
-    () => TopRatedTvSeriesNotifier(getTopRatedTvSeries: locator()),
-  );
-  locator.registerFactory(
-    () => WatchlistTvSeriesNotifier(getWatchlistTvSeries: locator()),
-  );
+    ));
 
   // tv series use cases
   locator.registerLazySingleton(() => GetAiringTodayTvSeries(locator()));
@@ -149,7 +135,5 @@ void init() {
   );
 
   // external
-
-  // eksternal
   locator.registerLazySingleton(() => http.Client());
 }
