@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'package:mockito/mockito.dart';
 
 import '../../../json_reader.dart';
-import '../../../helpers/test_helper.mocks.dart';
+import '../../../movies/helpers/test_helper.mocks.dart';
 
 void main() {
   final API_KEY = 'api_key=${Env.tmdbApiKey}';
