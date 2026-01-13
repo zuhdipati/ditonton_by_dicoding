@@ -58,7 +58,8 @@ class TvSeriesDetailModel extends Equatable {
       firstAirDate: json['first_air_date'] ?? '',
       genres: json['genres'] != null
           ? List<GenreModel>.from(
-              json['genres'].map((x) => GenreModel.fromJson(x)))
+              json['genres'].map((x) => GenreModel.fromJson(x)),
+            )
           : [],
       id: json['id'],
       name: json['name'] ?? '',
@@ -71,7 +72,8 @@ class TvSeriesDetailModel extends Equatable {
       posterPath: json['poster_path'],
       seasons: json['seasons'] != null
           ? List<SeasonModel>.from(
-              json['seasons'].map((x) => SeasonModel.fromJson(x)))
+              json['seasons'].map((x) => SeasonModel.fromJson(x)),
+            )
           : [],
       status: json['status'] ?? '',
       tagline: json['tagline'] ?? '',
@@ -87,7 +89,7 @@ class TvSeriesDetailModel extends Equatable {
       'backdrop_path': backdropPath,
       'episode_run_time': episodeRunTime,
       'first_air_date': firstAirDate,
-      'genres': genres.map((x) => x.toJson()).toList(),
+      'genres': genres.map((x) => {'id': x.id, 'name': x.name}).toList(),
       'id': id,
       'name': name,
       'number_of_episodes': numberOfEpisodes,
@@ -125,25 +127,25 @@ class TvSeriesDetailModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        adult,
-        backdropPath,
-        episodeRunTime,
-        firstAirDate,
-        genres,
-        id,
-        name,
-        numberOfEpisodes,
-        numberOfSeasons,
-        originalLanguage,
-        originalName,
-        overview,
-        popularity,
-        posterPath,
-        seasons,
-        status,
-        tagline,
-        type,
-        voteAverage,
-        voteCount,
-      ];
+    adult,
+    backdropPath,
+    episodeRunTime,
+    firstAirDate,
+    genres,
+    id,
+    name,
+    numberOfEpisodes,
+    numberOfSeasons,
+    originalLanguage,
+    originalName,
+    overview,
+    popularity,
+    posterPath,
+    seasons,
+    status,
+    tagline,
+    type,
+    voteAverage,
+    voteCount,
+  ];
 }

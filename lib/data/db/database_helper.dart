@@ -30,7 +30,6 @@ class DatabaseHelper {
       databasePath,
       version: 3,
       onCreate: _onCreate,
-      onUpgrade: _onUpgrade,
     );
     return db;
   }
@@ -53,27 +52,6 @@ class DatabaseHelper {
         posterPath TEXT
       );
     ''');
-  }
-
-  void _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    if (oldVersion < 3) {
-      await db.execute('''
-        CREATE TABLE IF NOT EXISTS $_tblMovieWatchlist (
-          id INTEGER PRIMARY KEY,
-          title TEXT,
-          overview TEXT,
-          posterPath TEXT
-        );
-      ''');
-      await db.execute('''
-        CREATE TABLE IF NOT EXISTS $_tblTvSeriesWatchlist (
-          id INTEGER PRIMARY KEY,
-          name TEXT,
-          overview TEXT,
-          posterPath TEXT
-        );
-      ''');
-    }
   }
 
   // movie

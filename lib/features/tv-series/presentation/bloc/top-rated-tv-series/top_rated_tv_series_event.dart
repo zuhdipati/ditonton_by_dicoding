@@ -1,10 +1,7 @@
 part of 'top_rated_tv_series_bloc.dart';
 
-sealed class TopRatedTvSeriesEvent extends Equatable {
+sealed class TopRatedTvSeriesEvent {
   const TopRatedTvSeriesEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
 class OnGetTopRatedTvSeries extends TopRatedTvSeriesEvent {}
