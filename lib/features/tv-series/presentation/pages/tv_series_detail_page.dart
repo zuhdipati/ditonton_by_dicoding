@@ -28,6 +28,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
       OnGetTvSeriesRecommendations(widget.id),
     );
     context.read<TvSeriesDetailBloc>().add(OnGetWatchlistStatus(widget.id));
+    context.read<TvSeriesDetailBloc>().add(OnGetTvSeriesSeasons(widget.id, 1));
   }
 
   @override
@@ -64,6 +65,7 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
             final tvSeries = state.tvSeriesDetail;
             return SafeArea(
               child: TvSeriesDetailContent(
+                widget.id,
                 tvSeries!,
                 state.tvSeriesRecommendations,
                 state.isAddedToWatchlist,
@@ -79,11 +81,13 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
 }
 
 class TvSeriesDetailContent extends StatelessWidget {
+  final int id;
   final TvSeriesDetail tvSeries;
   final List<TvSeries> recommendations;
   final bool isAddedWatchlist;
 
   TvSeriesDetailContent(
+    this.id,
     this.tvSeries,
     this.recommendations,
     this.isAddedWatchlist,
@@ -158,6 +162,113 @@ class TvSeriesDetailContent extends StatelessWidget {
                                 ),
                                 Text('${tvSeries.voteAverage}'),
                               ],
+                            ),
+                            SizedBox(height: 16),
+                            DropdownButtonFormField<int>(
+                              initialValue: 1,
+                              onChanged: (value) {
+                                context.read<TvSeriesDetailBloc>().add(
+                                  OnGetTvSeriesSeasons(id, value ?? 1),
+                                );
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Season',
+                                labelStyle: kBodyText,
+                              ),
+                              items: List.generate(
+                                tvSeries.numberOfSeasons,
+                                (index) => DropdownMenuItem(
+                                  value: index + 1,
+                                  child: Text('Season ${index + 1}'),
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            Text('Seasons', style: kHeading6),
+                            SizedBox(height: 8),
+                            BlocBuilder<
+                              TvSeriesDetailBloc,
+                              TvSeriesDetailState
+                            >(
+                              builder: (context, state) {
+                                final seasonState = state.tvSeriesSeasonState;
+                                if (seasonState == RequestState.Loading) {
+                                  return Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                } else if (seasonState == RequestState.Error) {
+                                  return Text(state.message);
+                                } else if (seasonState == RequestState.Loaded) {
+                                  return SizedBox(
+                                    height: 150,
+                                    child: ListView.builder(
+                                      scrollDirection: Axis.horizontal,
+                                      itemBuilder: (context, index) {
+                                        final seasonItem =
+                                            state.tvSeriesSeasons[index];
+                                        return Padding(
+                                          padding: const EdgeInsets.all(4.0),
+                                          child: InkWell(
+                                            onTap: () {},
+                                            child: Column(
+                                              children: [
+                                                ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.all(
+                                                        Radius.circular(8),
+                                                      ),
+                                                  child: Visibility(
+                                                    visible:
+                                                        seasonItem.stillPath !=
+                                                        null,
+                                                    replacement: Container(
+                                                      color: Colors.grey,
+                                                      height: 120,
+                                                      width: 220,
+                                                    ),
+                                                    child: CachedNetworkImage(
+                                                      height: 120,
+                                                      width: 220,
+                                                      imageUrl:
+                                                          'https://image.tmdb.org/t/p/w500${seasonItem.stillPath}',
+                                                      placeholder:
+                                                          (
+                                                            context,
+                                                            url,
+                                                          ) => Center(
+                                                            child:
+                                                                CircularProgressIndicator(),
+                                                          ),
+                                                      errorWidget:
+                                                          (
+                                                            context,
+                                                            url,
+                                                            error,
+                                                          ) =>
+                                                              Icon(Icons.error),
+                                                    ),
+                                                  ),
+                                                ),
+                                                SizedBox(
+                                                  width: 220,
+                                                  child: Text(
+                                                    seasonItem.name,
+                                                    textAlign: TextAlign.center,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      itemCount: state.tvSeriesSeasons.length,
+                                    ),
+                                  );
+                                }
+                                return Container();
+                              },
                             ),
                             SizedBox(height: 16),
                             Text('Overview', style: kHeading6),

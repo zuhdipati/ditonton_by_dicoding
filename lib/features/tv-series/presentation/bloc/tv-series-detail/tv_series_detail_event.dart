@@ -48,3 +48,13 @@ class OnRemoveWatchlist extends TvSeriesDetailEvent {
   @override
   List<Object> get props => [tvSeries];
 }
+
+class OnGetTvSeriesSeasons extends TvSeriesDetailEvent {
+  final int id;
+  final int seasonNumber;
+
+  const OnGetTvSeriesSeasons(this.id, this.seasonNumber);
+
+  @override
+  List<Object> get props => [id, seasonNumber];
+}

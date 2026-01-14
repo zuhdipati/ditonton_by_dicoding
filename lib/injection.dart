@@ -29,6 +29,7 @@ import 'package:ditonton/features/tv-series/domain/usecases/get_popular_tv_serie
 import 'package:ditonton/features/tv-series/domain/usecases/get_top_rated_tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_detail.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_recomendations.dart';
+import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_seasons.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_watchlist_tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_watchlist_tv_series_status.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/remove_watchlist_tv_series.dart';
@@ -48,15 +49,17 @@ final locator = GetIt.instance;
 Future<void> init() async {
   // external
   locator.registerSingletonAsync<http.Client>(
-    () async => await HttpSSLPinning.client
+    () async => await HttpSSLPinning.client,
   );
-  
+
   // movie bloc
   locator.registerFactory(() => NowPlayingBloc(getNowPlayingMovies: locator()));
   locator.registerFactory(() => TopRatedBloc(getTopRatedMovies: locator()));
   locator.registerFactory(() => PopularMoviesBloc(getPopularMovies: locator()));
   locator.registerFactory(() => SearchMoviesBloc(searchMovies: locator()));
-  locator.registerFactory(() => WatchlistMoviesBloc(getWatchlistMovies: locator()));
+  locator.registerFactory(
+    () => WatchlistMoviesBloc(getWatchlistMovies: locator()),
+  );
   locator.registerFactory(
     () => MovieDetailBloc(
       getMovieDetail: locator(),
@@ -99,18 +102,29 @@ Future<void> init() async {
   locator.registerLazySingleton<DatabaseHelper>(() => DatabaseHelper());
 
   // tv series bloc
-  locator.registerFactory(() => AiringTodayBloc(getAiringTodayTvSeries: locator()));
-  locator.registerFactory(() => PopularTvSeriesBloc(getPopularTvSeries: locator()));
-  locator.registerFactory(() => TopRatedTvSeriesBloc(getTopRatedTvSeries: locator()));
+  locator.registerFactory(
+    () => AiringTodayBloc(getAiringTodayTvSeries: locator()),
+  );
+  locator.registerFactory(
+    () => PopularTvSeriesBloc(getPopularTvSeries: locator()),
+  );
+  locator.registerFactory(
+    () => TopRatedTvSeriesBloc(getTopRatedTvSeries: locator()),
+  );
   locator.registerFactory(() => SearchTvSeriesBloc(searchTvSeries: locator()));
-  locator.registerFactory(() => WatchlistTvSeriesBloc(getWatchlistTvSeries: locator()));
-  locator.registerFactory(() => TvSeriesDetailBloc(
+  locator.registerFactory(
+    () => WatchlistTvSeriesBloc(getWatchlistTvSeries: locator()),
+  );
+  locator.registerFactory(
+    () => TvSeriesDetailBloc(
       getTvSeriesDetail: locator(),
       getTvSeriesRecommendations: locator(),
       getWatchlistTvSeriesStatus: locator(),
       saveWatchlistTvSeries: locator(),
       removeWatchlistTvSeries: locator(),
-    ));
+      getSeasonEpisodes: locator(),
+    ),
+  );
 
   // tv series use cases
   locator.registerLazySingleton(() => GetAiringTodayTvSeries(locator()));
@@ -123,6 +137,7 @@ Future<void> init() async {
   locator.registerLazySingleton(() => SaveWatchlistTvSeries(locator()));
   locator.registerLazySingleton(() => RemoveWatchlistTvSeries(locator()));
   locator.registerLazySingleton(() => GetWatchlistTvSeries(locator()));
+  locator.registerLazySingleton(() => GetSeasonEpisodes(locator()));
 
   // tv series repository
   locator.registerLazySingleton<TvSeriesRepository>(

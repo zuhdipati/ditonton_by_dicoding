@@ -7,6 +7,8 @@ import 'dart:async' as _i5;
 
 import 'package:dartz/dartz.dart' as _i3;
 import 'package:ditonton/common/failure.dart' as _i6;
+import 'package:ditonton/features/tv-series/domain/entities/episode.dart'
+    as _i14;
 import 'package:ditonton/features/tv-series/domain/entities/tv_series.dart'
     as _i9;
 import 'package:ditonton/features/tv-series/domain/entities/tv_series_detail.dart'
@@ -17,6 +19,8 @@ import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_detail
     as _i4;
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_recomendations.dart'
     as _i8;
+import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_seasons.dart'
+    as _i13;
 import 'package:ditonton/features/tv-series/domain/usecases/get_watchlist_tv_series_status.dart'
     as _i10;
 import 'package:ditonton/features/tv-series/domain/usecases/remove_watchlist_tv_series.dart'
@@ -224,4 +228,41 @@ class MockRemoveWatchlistTvSeries extends _i1.Mock
             ),
           )
           as _i5.Future<_i3.Either<_i6.Failure, String>>);
+}
+
+/// A class which mocks [GetSeasonEpisodes].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGetSeasonEpisodes extends _i1.Mock implements _i13.GetSeasonEpisodes {
+  MockGetSeasonEpisodes() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i2.TvSeriesRepository get repository =>
+      (super.noSuchMethod(
+            Invocation.getter(#repository),
+            returnValue: _FakeTvSeriesRepository_0(
+              this,
+              Invocation.getter(#repository),
+            ),
+          )
+          as _i2.TvSeriesRepository);
+
+  @override
+  _i5.Future<_i3.Either<_i6.Failure, List<_i14.Episode>>> execute(
+    int? id,
+    int? seasonNumber,
+  ) =>
+      (super.noSuchMethod(
+            Invocation.method(#execute, [id, seasonNumber]),
+            returnValue:
+                _i5.Future<_i3.Either<_i6.Failure, List<_i14.Episode>>>.value(
+                  _FakeEither_1<_i6.Failure, List<_i14.Episode>>(
+                    this,
+                    Invocation.method(#execute, [id, seasonNumber]),
+                  ),
+                ),
+          )
+          as _i5.Future<_i3.Either<_i6.Failure, List<_i14.Episode>>>);
 }

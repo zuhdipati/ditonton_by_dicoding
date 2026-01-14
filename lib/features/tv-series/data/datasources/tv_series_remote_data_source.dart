@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:ditonton/common/exception.dart';
 import 'package:ditonton/env/env.dart';
 import 'package:ditonton/features/tv-series/data/models/tv_series_detail_model.dart';
+import 'package:ditonton/features/tv-series/data/models/episode_model.dart';
+import 'package:ditonton/features/tv-series/data/models/season_detail_response.dart';
 import 'package:ditonton/features/tv-series/data/models/tv_series_model.dart';
 import 'package:ditonton/features/tv-series/data/models/tv_series_response.dart';
 import 'package:http/http.dart' as http;
@@ -14,6 +16,7 @@ abstract class TvSeriesRemoteDataSource {
   Future<TvSeriesDetailModel> getTvSeriesDetail(int id);
   Future<List<TvSeriesModel>> getTvSeriesRecommendations(int id);
   Future<List<TvSeriesModel>> searchTvSeries(String query);
+  Future<List<EpisodeModel>> getSeasonEpisodes(int id, int seasonNumber);
 }
 
 class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
@@ -81,5 +84,16 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
       throw ServerException();
     }
     return TvSeriesResponse.fromJson(json.decode(response.body)).tvSeriesList;
+  }
+
+  @override
+  Future<List<EpisodeModel>> getSeasonEpisodes(int id, int seasonNumber) async {
+    final response = await client.get(
+      Uri.parse('$BASE_URL/tv/$id/season/$seasonNumber?$API_KEY'),
+    );
+    if (response.statusCode != 200) {
+      throw ServerException();
+    }
+    return SeasonDetailResponse.fromJson(json.decode(response.body)).episodes;
   }
 }

@@ -4,6 +4,7 @@ import 'package:ditonton/common/failure.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_detail.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_recomendations.dart';
+import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_seasons.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_watchlist_tv_series_status.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/remove_watchlist_tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/save_watchlist_tv_series.dart';
@@ -21,6 +22,7 @@ import 'tv_series_detail_bloc_test.mocks.dart';
   GetWatchlistTvSeriesStatus,
   SaveWatchlistTvSeries,
   RemoveWatchlistTvSeries,
+  GetSeasonEpisodes,
 ])
 void main() {
   late TvSeriesDetailBloc tvSeriesDetailBloc;
@@ -29,6 +31,7 @@ void main() {
   late MockGetWatchlistTvSeriesStatus mockGetWatchlistTvSeriesStatus;
   late MockSaveWatchlistTvSeries mockSaveWatchlistTvSeries;
   late MockRemoveWatchlistTvSeries mockRemoveWatchlistTvSeries;
+  late MockGetSeasonEpisodes mockGetSeasonEpisodes;
 
   setUp(() {
     mockGetTvSeriesDetail = MockGetTvSeriesDetail();
@@ -36,12 +39,14 @@ void main() {
     mockGetWatchlistTvSeriesStatus = MockGetWatchlistTvSeriesStatus();
     mockSaveWatchlistTvSeries = MockSaveWatchlistTvSeries();
     mockRemoveWatchlistTvSeries = MockRemoveWatchlistTvSeries();
+    mockGetSeasonEpisodes = MockGetSeasonEpisodes();
     tvSeriesDetailBloc = TvSeriesDetailBloc(
       getTvSeriesDetail: mockGetTvSeriesDetail,
       getTvSeriesRecommendations: mockGetTvSeriesRecommendations,
       getWatchlistTvSeriesStatus: mockGetWatchlistTvSeriesStatus,
       saveWatchlistTvSeries: mockSaveWatchlistTvSeries,
       removeWatchlistTvSeries: mockRemoveWatchlistTvSeries,
+      getSeasonEpisodes: mockGetSeasonEpisodes,
     );
   });
 
@@ -155,7 +160,7 @@ void main() {
       },
     );
 
-     blocTest<TvSeriesDetailBloc, TvSeriesDetailState>(
+    blocTest<TvSeriesDetailBloc, TvSeriesDetailState>(
       'emits isAddedToWatchlist false when watchlist status is false',
       build: () {
         when(

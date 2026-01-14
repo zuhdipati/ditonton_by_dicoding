@@ -7,6 +7,8 @@ class TvSeriesDetailState extends Equatable {
   final RequestState tvSeriesDetailState;
   final List<TvSeries> tvSeriesRecommendations;
   final RequestState tvSeriesRecommendationState;
+  final List<Episode> tvSeriesSeasons;
+  final RequestState tvSeriesSeasonState;
   final bool isAddedToWatchlist;
   final String watchlistMessage;
   final String message;
@@ -16,6 +18,8 @@ class TvSeriesDetailState extends Equatable {
     this.tvSeriesDetailState = RequestState.Empty,
     this.tvSeriesRecommendations = const [],
     this.tvSeriesRecommendationState = RequestState.Empty,
+    this.tvSeriesSeasons = const [],
+    this.tvSeriesSeasonState = RequestState.Empty,
     this.isAddedToWatchlist = false,
     this.watchlistMessage = '',
     this.message = '',
@@ -26,6 +30,8 @@ class TvSeriesDetailState extends Equatable {
     RequestState? tvSeriesDetailState,
     List<TvSeries>? tvSeriesRecommendations,
     RequestState? tvSeriesRecommendationState,
+    List<Episode>? tvSeriesSeasons,
+    RequestState? tvSeriesSeasonState,
     bool? isAddedToWatchlist,
     String? watchlistMessage,
     String? message,
@@ -37,6 +43,8 @@ class TvSeriesDetailState extends Equatable {
           tvSeriesRecommendations ?? this.tvSeriesRecommendations,
       tvSeriesRecommendationState:
           tvSeriesRecommendationState ?? this.tvSeriesRecommendationState,
+      tvSeriesSeasons: tvSeriesSeasons ?? this.tvSeriesSeasons,
+      tvSeriesSeasonState: tvSeriesSeasonState ?? this.tvSeriesSeasonState,
       isAddedToWatchlist: isAddedToWatchlist ?? this.isAddedToWatchlist,
       watchlistMessage: watchlistMessage ?? this.watchlistMessage,
       message: message ?? this.message,
@@ -49,6 +57,8 @@ class TvSeriesDetailState extends Equatable {
     tvSeriesDetailState,
     tvSeriesRecommendations,
     tvSeriesRecommendationState,
+    tvSeriesSeasons,
+    tvSeriesSeasonState,
     isAddedToWatchlist,
     watchlistMessage,
     message,

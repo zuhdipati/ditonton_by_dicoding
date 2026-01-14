@@ -1,10 +1,12 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:ditonton/common/state_enum.dart';
+import 'package:ditonton/features/tv-series/domain/entities/episode.dart';
 import 'package:ditonton/features/tv-series/domain/entities/tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/entities/tv_series_detail.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_detail.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_recomendations.dart';
+import 'package:ditonton/features/tv-series/domain/usecases/get_tv_series_seasons.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/get_watchlist_tv_series_status.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/remove_watchlist_tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/usecases/save_watchlist_tv_series.dart';
@@ -23,6 +25,7 @@ class TvSeriesDetailBloc
   final GetWatchlistTvSeriesStatus getWatchlistTvSeriesStatus;
   final SaveWatchlistTvSeries saveWatchlistTvSeries;
   final RemoveWatchlistTvSeries removeWatchlistTvSeries;
+  final GetSeasonEpisodes getSeasonEpisodes;
 
   TvSeriesDetailBloc({
     required this.getTvSeriesDetail,
@@ -30,12 +33,14 @@ class TvSeriesDetailBloc
     required this.getWatchlistTvSeriesStatus,
     required this.saveWatchlistTvSeries,
     required this.removeWatchlistTvSeries,
+    required this.getSeasonEpisodes,
   }) : super(TvSeriesDetailInitial()) {
     on<OnGetTvSeriesDetail>(_onGetTvSeriesDetail);
     on<OnGetTvSeriesRecommendations>(_onGetTvSeriesRecommendations);
     on<OnGetWatchlistStatus>(_onGetWatchlistStatus);
     on<OnSaveWatchlist>(_onSaveWatchlist);
     on<OnRemoveWatchlist>(_onRemoveWatchlist);
+    on<OnGetTvSeriesSeasons>(_onGetTvSeriesSeasons);
   }
 
   FutureOr<void> _onGetTvSeriesDetail(
@@ -122,6 +127,33 @@ class TvSeriesDetailBloc
       (failure) => emit(state.copyWith(watchlistMessage: failure.message)),
       (message) => emit(
         state.copyWith(watchlistMessage: message, isAddedToWatchlist: false),
+      ),
+    );
+  }
+
+  FutureOr<void> _onGetTvSeriesSeasons(
+    OnGetTvSeriesSeasons event,
+    Emitter<TvSeriesDetailState> emit,
+  ) async {
+    emit(state.copyWith(tvSeriesSeasonState: RequestState.Loading));
+
+    final result = await getSeasonEpisodes.execute(
+      event.id,
+      event.seasonNumber,
+    );
+
+    result.fold(
+      (failure) => emit(
+        state.copyWith(
+          message: failure.message,
+          tvSeriesSeasonState: RequestState.Error,
+        ),
+      ),
+      (tvSeriesList) => emit(
+        state.copyWith(
+          tvSeriesSeasons: tvSeriesList,
+          tvSeriesSeasonState: RequestState.Loaded,
+        ),
       ),
     );
   }
