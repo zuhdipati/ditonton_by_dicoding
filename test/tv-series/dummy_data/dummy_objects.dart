@@ -1,9 +1,11 @@
 import 'package:ditonton/features/movie/data/models/genre_model.dart';
+import 'package:ditonton/features/tv-series/data/models/episode_model.dart';
 import 'package:ditonton/features/tv-series/data/models/season_model.dart';
 import 'package:ditonton/features/tv-series/data/models/tv_series_detail_model.dart';
 import 'package:ditonton/features/tv-series/data/models/tv_series_model.dart';
 import 'package:ditonton/features/tv-series/data/models/tv_series_table.dart';
 import 'package:ditonton/features/movie/domain/entities/genre.dart';
+import 'package:ditonton/features/tv-series/domain/entities/episode.dart';
 import 'package:ditonton/features/tv-series/domain/entities/season.dart';
 import 'package:ditonton/features/tv-series/domain/entities/tv_series.dart';
 import 'package:ditonton/features/tv-series/domain/entities/tv_series_detail.dart';
@@ -118,6 +120,29 @@ final testTvSeriesDetail = TvSeriesDetail(
   ],
   voteAverage: 6.6,
 );
+
+final testTvSeriesEpisodeModel = EpisodeModel(
+  id: 12345,
+  name: "Chapter One: The Beginning",
+  overview: "This is the summary of the episode where everything starts.",
+  episodeNumber: 1,
+  stillPath: "/examplePathToImage.jpg",
+  airDate: "2023-10-25",
+  voteAverage: 8.5,
+);
+final testTvSeriesEpisodeModelList = <EpisodeModel>[testTvSeriesEpisodeModel];
+
+final testTvSeriesEpisode = Episode(
+  id: 12345,
+  name: "Chapter One: The Beginning",
+  overview: "This is the summary of the episode where everything starts.",
+  episodeNumber: 1,
+  stillPath: "/examplePathToImage.jpg",
+  airDate: "2023-10-25",
+  voteAverage: 8.5,
+);
+
+final testTvSeriesEpisodeList = <Episode>[testTvSeriesEpisode];
 
 final testWatchlistTvSeries = TvSeries.watchlist(
   id: 202250,
