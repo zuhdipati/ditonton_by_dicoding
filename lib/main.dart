@@ -25,6 +25,7 @@ import 'package:ditonton/features/tv-series/presentation/pages/top_rated_tv_seri
 import 'package:ditonton/features/tv-series/presentation/pages/tv_series_detail_page.dart';
 import 'package:ditonton/features/tv-series/presentation/pages/watchlist_tv_series_page.dart';
 import 'package:ditonton/firebase_options.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/cupertino.dart';
@@ -68,7 +69,10 @@ class MyApp extends StatelessWidget {
           drawerTheme: kDrawerTheme,
         ),
         home: MainPage(),
-        navigatorObservers: [routeObserver],
+        navigatorObservers: [
+          FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
+          routeObserver,
+        ],
         onGenerateRoute: (RouteSettings settings) {
           switch (settings.name) {
             case '/main':
