@@ -257,20 +257,25 @@ void main() {
   });
 
   group("get seasons episodes", () {
-    test("should return list episodes of tv series when the response code is 200", () async {
-      when(
-        mockHttpClient.get(Uri.parse("$BASE_URL/tv/202250/season/1?$API_KEY")),
-      ).thenAnswer(
-        (_) async => http.Response(
-          readJson('tv-series/dummy_data/tv_series_episode_model.json'),
-          200,
-        ),
-      );
+    test(
+      "should return list episodes of tv series when the response code is 200",
+      () async {
+        when(
+          mockHttpClient.get(
+            Uri.parse("$BASE_URL/tv/202250/season/1?$API_KEY"),
+          ),
+        ).thenAnswer(
+          (_) async => http.Response(
+            readJson('tv-series/dummy_data/tv_series_episode_model.json'),
+            200,
+          ),
+        );
 
-      final result = await dataSource.getSeasonEpisodes(202250, 1);
+        final result = await dataSource.getSeasonEpisodes(202250, 1);
 
-      expect(result, equals(testTvSeriesEpisodeModelList));
-    });
+        expect(result, equals(testTvSeriesEpisodeModelList));
+      },
+    );
 
     test("description", () async {
       when(

@@ -2,7 +2,7 @@ part of 'popular_movies_bloc.dart';
 
 sealed class PopularMoviesState extends Equatable {
   const PopularMoviesState();
-  
+
   @override
   List<Object> get props => [];
 }

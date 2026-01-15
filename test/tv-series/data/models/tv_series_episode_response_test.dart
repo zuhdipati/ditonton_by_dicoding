@@ -19,7 +19,7 @@ void main() {
     });
   });
 
-   group("to json", () {
+  group("to json", () {
     test("should return a valid model tojson", () {
       final Map<String, dynamic> expectedJsonMap = json.decode(
         readJson('tv-series/dummy_data/tv_series_episode.json'),

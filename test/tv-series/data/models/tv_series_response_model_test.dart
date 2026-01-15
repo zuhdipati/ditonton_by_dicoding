@@ -8,13 +8,15 @@ import '../../../json_reader.dart';
 import '../../dummy_data/dummy_objects.dart';
 
 void main() {
-  final testTvSeriesResponseModel =
-      TvSeriesResponse(tvSeriesList: <TvSeriesModel>[testTvSeriesModel]);
+  final testTvSeriesResponseModel = TvSeriesResponse(
+    tvSeriesList: <TvSeriesModel>[testTvSeriesModel],
+  );
 
   group("fromjson", () {
     test('should return a valid model from json', () async {
-      final Map<String, dynamic> jsonMap = json
-          .decode(readJson('tv-series/dummy_data/airing_today_tv_series.json'));
+      final Map<String, dynamic> jsonMap = json.decode(
+        readJson('tv-series/dummy_data/airing_today_tv_series.json'),
+      );
 
       final result = TvSeriesResponse.fromJson(jsonMap);
 
@@ -40,9 +42,9 @@ void main() {
             "popularity": 2797.914,
             "poster_path": "/aoAZgnmMzY9vVy9VWnO3U5PZENh.jpg",
             "vote_average": 5,
-            "vote_count": 13
-          }
-        ]
+            "vote_count": 13,
+          },
+        ],
       };
 
       final result = testTvSeriesResponseModel.toJson();

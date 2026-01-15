@@ -16,8 +16,9 @@ void main() {
   });
 
   test("should get top rated tv series from the repository", () async {
-    when(mockTvSeriesRepository.getTopRatedTvSeries())
-        .thenAnswer((realInvocation) async => Right(testTvSeriesList));
+    when(
+      mockTvSeriesRepository.getTopRatedTvSeries(),
+    ).thenAnswer((realInvocation) async => Right(testTvSeriesList));
 
     final result = await usecase.execute();
 

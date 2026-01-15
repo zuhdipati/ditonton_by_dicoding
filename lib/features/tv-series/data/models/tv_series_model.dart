@@ -36,8 +36,8 @@ class TvSeriesModel extends Equatable {
     return TvSeriesModel(
       backdropPath: json['backdrop_path'],
       firstAirDate: json['first_air_date'],
-      genreIds: json['genre_ids'] != null 
-          ? List<int>.from(json['genre_ids']) 
+      genreIds: json['genre_ids'] != null
+          ? List<int>.from(json['genre_ids'])
           : [],
       id: json['id'],
       name: json['name'] ?? '',
@@ -83,18 +83,18 @@ class TvSeriesModel extends Equatable {
 
   @override
   List<Object?> get props => [
-        backdropPath,
-        firstAirDate,
-        genreIds,
-        id,
-        name,
-        originCountry,
-        originalLanguage,
-        originalName,
-        overview,
-        popularity,
-        posterPath,
-        voteAverage,
-        voteCount,
-      ];
+    backdropPath,
+    firstAirDate,
+    genreIds,
+    id,
+    name,
+    originCountry,
+    originalLanguage,
+    originalName,
+    overview,
+    popularity,
+    posterPath,
+    voteAverage,
+    voteCount,
+  ];
 }

@@ -152,8 +152,8 @@ void main() {
   );
 
   test('styles should be loadable (bcs uncovered at this widget test)', () {
-    expect(kSubtitle, isNotNull); 
-    expect(kBodyText, isNotNull); 
+    expect(kSubtitle, isNotNull);
+    expect(kBodyText, isNotNull);
     expect(kTextTheme, isNotNull);
     expect(kDrawerTheme, isNotNull);
   });

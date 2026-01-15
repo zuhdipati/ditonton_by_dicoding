@@ -9,8 +9,9 @@ import '../../dummy_data/dummy_objects.dart';
 void main() {
   group("fromjson", () {
     test("should return a valid model from json", () async {
-      final Map<String, dynamic> jsonMap = json
-          .decode(readJson('tv-series/dummy_data/tv_series_detail.json'));
+      final Map<String, dynamic> jsonMap = json.decode(
+        readJson('tv-series/dummy_data/tv_series_detail.json'),
+      );
 
       final result = TvSeriesDetailModel.fromJson(jsonMap);
 
@@ -20,8 +21,9 @@ void main() {
 
   group("tojson", () {
     test("should return a valid model to json", () async {
-      final Map<String, dynamic> expectedJsonMap = json
-          .decode(readJson('tv-series/dummy_data/tv_series_detail.json'));
+      final Map<String, dynamic> expectedJsonMap = json.decode(
+        readJson('tv-series/dummy_data/tv_series_detail.json'),
+      );
 
       final result = testTvSeriesDetailModel.toJson();
 

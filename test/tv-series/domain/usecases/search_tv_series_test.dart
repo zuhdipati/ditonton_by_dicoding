@@ -15,13 +15,16 @@ void main() {
     usecase = SearchTvSeries(mockTvSeriesRepository);
   });
 
-  test("should return list of tv series when data is successfully fetched",
-      () async {
-    when(mockTvSeriesRepository.searchTvSeries('the'))
-        .thenAnswer((realInvocation) async => Right(testTvSeriesList));
+  test(
+    "should return list of tv series when data is successfully fetched",
+    () async {
+      when(
+        mockTvSeriesRepository.searchTvSeries('the'),
+      ).thenAnswer((realInvocation) async => Right(testTvSeriesList));
 
-    final result = await usecase.execute('the');
+      final result = await usecase.execute('the');
 
-    expect(result, Right(testTvSeriesList));
-  });
+      expect(result, Right(testTvSeriesList));
+    },
+  );
 }

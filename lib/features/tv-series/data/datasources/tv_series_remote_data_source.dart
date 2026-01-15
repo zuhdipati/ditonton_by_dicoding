@@ -29,8 +29,9 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TvSeriesModel>> getAiringTodayTvSeries() async {
-    final response =
-        await client.get(Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'));
+    final response = await client.get(
+      Uri.parse('$BASE_URL/tv/airing_today?$API_KEY'),
+    );
     if (response.statusCode != 200) {
       throw ServerException();
     }
@@ -39,8 +40,9 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TvSeriesModel>> getPopularTvSeries() async {
-    final response =
-        await client.get(Uri.parse('$BASE_URL/tv/popular?$API_KEY'));
+    final response = await client.get(
+      Uri.parse('$BASE_URL/tv/popular?$API_KEY'),
+    );
     if (response.statusCode != 200) {
       throw ServerException();
     }
@@ -49,8 +51,9 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TvSeriesModel>> getTopRatedTvSeries() async {
-    final response =
-        await client.get(Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'));
+    final response = await client.get(
+      Uri.parse('$BASE_URL/tv/top_rated?$API_KEY'),
+    );
     if (response.statusCode != 200) {
       throw ServerException();
     }
@@ -68,8 +71,9 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TvSeriesModel>> getTvSeriesRecommendations(int id) async {
-    final response = await client
-        .get(Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'));
+    final response = await client.get(
+      Uri.parse('$BASE_URL/tv/$id/recommendations?$API_KEY'),
+    );
     if (response.statusCode != 200) {
       throw ServerException();
     }
@@ -78,8 +82,9 @@ class TvSeriesRemoteDataSourceImpl implements TvSeriesRemoteDataSource {
 
   @override
   Future<List<TvSeriesModel>> searchTvSeries(String query) async {
-    final response = await client
-        .get(Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'));
+    final response = await client.get(
+      Uri.parse('$BASE_URL/search/tv?$API_KEY&query=$query'),
+    );
     if (response.statusCode != 200) {
       throw ServerException();
     }

@@ -16,8 +16,9 @@ void main() {
   });
 
   test('should save watchlist tv series to repository', () async {
-    when(mockTvSeriesRepository.saveWatchlistTvSeries(testTvSeriesDetail))
-        .thenAnswer((realInvocation) async => Right('Added to watchlist'));
+    when(
+      mockTvSeriesRepository.saveWatchlistTvSeries(testTvSeriesDetail),
+    ).thenAnswer((realInvocation) async => Right('Added to watchlist'));
 
     final result = await usecase.execute(testTvSeriesDetail);
 

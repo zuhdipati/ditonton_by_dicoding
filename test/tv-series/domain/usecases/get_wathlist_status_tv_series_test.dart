@@ -6,23 +6,23 @@ import 'package:mockito/mockito.dart';
 import '../../helpers/tv_series_test_helper.mocks.dart';
 
 void main() {
- late GetWatchlistTvSeriesStatus usecase;
- late MockTvSeriesRepository mockTvSeriesRepository;
+  late GetWatchlistTvSeriesStatus usecase;
+  late MockTvSeriesRepository mockTvSeriesRepository;
 
- setUp(() {
-  mockTvSeriesRepository = MockTvSeriesRepository();
-  usecase = GetWatchlistTvSeriesStatus(mockTvSeriesRepository);
- });
+  setUp(() {
+    mockTvSeriesRepository = MockTvSeriesRepository();
+    usecase = GetWatchlistTvSeriesStatus(mockTvSeriesRepository);
+  });
 
- test("should get watchlist status from the repository", () async {
-  final tId = 1;
+  test("should get watchlist status from the repository", () async {
+    final tId = 1;
 
-  when(mockTvSeriesRepository.isAddedToWatchlistTvSeries(tId))
-      .thenAnswer((realInvocation) async => Right(true));
+    when(
+      mockTvSeriesRepository.isAddedToWatchlistTvSeries(tId),
+    ).thenAnswer((realInvocation) async => Right(true));
 
-  final result = await usecase.execute(tId);
+    final result = await usecase.execute(tId);
 
-  expect(result, Right(true));
- });
-
+    expect(result, Right(true));
+  });
 }

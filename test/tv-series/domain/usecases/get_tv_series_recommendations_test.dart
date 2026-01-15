@@ -18,8 +18,9 @@ void main() {
   final tId = 1;
 
   test("should get tv series recommendations from the repository", () async {
-    when(mockTvSeriesRepository.getTvSeriesRecommendations(tId))
-        .thenAnswer((realInvocation) async => Right(testTvSeriesList));
+    when(
+      mockTvSeriesRepository.getTvSeriesRecommendations(tId),
+    ).thenAnswer((realInvocation) async => Right(testTvSeriesList));
 
     final result = await usecase.execute(tId);
 

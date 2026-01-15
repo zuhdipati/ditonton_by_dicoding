@@ -15,10 +15,10 @@ void main() {
     usecase = GetAiringTodayTvSeries(mockTvSeriesRepository);
   });
 
-
   test("should get list of tv series from the repo", () async {
-    when(mockTvSeriesRepository.getAiringTodayTvSeries())
-        .thenAnswer((realInvocation) async => Right(testTvSeriesList));
+    when(
+      mockTvSeriesRepository.getAiringTodayTvSeries(),
+    ).thenAnswer((realInvocation) async => Right(testTvSeriesList));
 
     final result = await usecase.execute();
 

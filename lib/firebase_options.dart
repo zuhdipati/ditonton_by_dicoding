@@ -72,5 +72,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'ditonton-a36c6.firebasestorage.app',
     iosBundleId: 'com.dicoding.ditonton',
   );
-
 }

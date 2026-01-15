@@ -38,10 +38,12 @@ void main() {
       });
     });
 
-
     group("OnSearchMovies", () {
       test('supports value equality', () {
-        expect(const OnSearchMovies("avatar"), equals(const OnSearchMovies("avatar")));
+        expect(
+          const OnSearchMovies("avatar"),
+          equals(const OnSearchMovies("avatar")),
+        );
       });
 
       test('props are correct', () {

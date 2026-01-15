@@ -22,8 +22,9 @@ void main() {
     voteAverage: 1.0,
     voteCount: 1,
   );
-  final tMovieResponseModel =
-      MovieResponse(movieList: <MovieModel>[tMovieModel]);
+  final tMovieResponseModel = MovieResponse(
+    movieList: <MovieModel>[tMovieModel],
+  );
   group('fromJson', () {
     test('should return a valid model from JSON', () async {
       // arrange
@@ -59,8 +60,8 @@ void main() {
             "title": "Title",
             "video": false,
             "vote_average": 1.0,
-            "vote_count": 1
-          }
+            "vote_count": 1,
+          },
         ],
       };
       expect(result, expectedJsonMap);

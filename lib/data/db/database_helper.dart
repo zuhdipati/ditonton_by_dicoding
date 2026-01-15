@@ -26,11 +26,7 @@ class DatabaseHelper {
     final path = await getDatabasesPath();
     final databasePath = '$path/ditonton.db';
 
-    var db = await openDatabase(
-      databasePath,
-      version: 3,
-      onCreate: _onCreate,
-    );
+    var db = await openDatabase(databasePath, version: 3, onCreate: _onCreate);
     return db;
   }
 

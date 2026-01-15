@@ -25,5 +25,4 @@ class TopRatedBloc extends Bloc<TopRatedEvent, TopRatedState> {
       (movies) => emit(TopRatedLoaded(movies)),
     );
   }
-  
 }

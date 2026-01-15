@@ -11,9 +11,16 @@ abstract class TvSeriesRepository {
   Future<Either<Failure, TvSeriesDetail>> getTvSeriesDetail(int id);
   Future<Either<Failure, List<TvSeries>>> getTvSeriesRecommendations(int id);
   Future<Either<Failure, List<TvSeries>>> searchTvSeries(String query);
-  Future<Either<Failure, String>> saveWatchlistTvSeries(TvSeriesDetail tvSeries);
-  Future<Either<Failure, String>> removeWatchlistTvSeries(TvSeriesDetail tvSeries);
+  Future<Either<Failure, String>> saveWatchlistTvSeries(
+    TvSeriesDetail tvSeries,
+  );
+  Future<Either<Failure, String>> removeWatchlistTvSeries(
+    TvSeriesDetail tvSeries,
+  );
   Future<Either<Failure, bool>> isAddedToWatchlistTvSeries(int id);
   Future<Either<Failure, List<TvSeries>>> getWatchlistTvSeries();
-  Future<Either<Failure, List<Episode>>> getSeasonEpisodes(int id, int seasonNumber);
+  Future<Either<Failure, List<Episode>>> getSeasonEpisodes(
+    int id,
+    int seasonNumber,
+  );
 }

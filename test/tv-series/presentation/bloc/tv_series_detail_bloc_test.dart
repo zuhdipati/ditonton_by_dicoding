@@ -261,9 +261,7 @@ void main() {
       },
       act: (bloc) => bloc.add(const OnGetTvSeriesSeasons(tId, 1)),
       expect: () => [
-        const TvSeriesDetailState(
-          tvSeriesSeasonState: RequestState.Loading,
-        ),
+        const TvSeriesDetailState(tvSeriesSeasonState: RequestState.Loading),
         TvSeriesDetailState(
           tvSeriesSeasons: testTvSeriesEpisodeList,
           tvSeriesSeasonState: RequestState.Loaded,
@@ -284,9 +282,7 @@ void main() {
       },
       act: (bloc) => bloc.add(const OnGetTvSeriesSeasons(tId, 1)),
       expect: () => [
-        const TvSeriesDetailState(
-          tvSeriesSeasonState: RequestState.Loading,
-        ),
+        const TvSeriesDetailState(tvSeriesSeasonState: RequestState.Loading),
         const TvSeriesDetailState(
           message: 'Server Failure',
           tvSeriesSeasonState: RequestState.Error,

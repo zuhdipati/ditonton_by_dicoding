@@ -21,10 +21,5 @@ class TvSeries extends Equatable {
   });
 
   @override
-  List<Object?> get props => [
-        id,
-        name,
-        overview,
-        posterPath,
-      ];
+  List<Object?> get props => [id, name, overview, posterPath];
 }
