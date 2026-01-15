@@ -1,0 +1,13 @@
+{
+  "episodes": [
+    {
+      "id": 12345,
+      "name": "Chapter One: The Beginning",
+      "overview": "This is the summary of the episode where everything starts.",
+      "episode_number": 1,
+      "still_path": "/examplePathToImage.jpg",
+      "air_date": "2023-10-25",
+      "vote_average": 8.5
+    }
+  ]
+}

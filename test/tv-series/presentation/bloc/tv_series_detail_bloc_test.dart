@@ -249,4 +249,52 @@ void main() {
       },
     );
   });
+
+  group("seasons episodes", () {
+    blocTest<TvSeriesDetailBloc, TvSeriesDetailState>(
+      'emits Loading and then Loaded when GetSeasonEpisodes is successful',
+      build: () {
+        when(
+          mockGetSeasonEpisodes.execute(tId, 1),
+        ).thenAnswer((_) async => Right(testTvSeriesEpisodeList));
+        return tvSeriesDetailBloc;
+      },
+      act: (bloc) => bloc.add(const OnGetTvSeriesSeasons(tId, 1)),
+      expect: () => [
+        const TvSeriesDetailState(
+          tvSeriesSeasonState: RequestState.Loading,
+        ),
+        TvSeriesDetailState(
+          tvSeriesSeasons: testTvSeriesEpisodeList,
+          tvSeriesSeasonState: RequestState.Loaded,
+        ),
+      ],
+      verify: (_) {
+        verify(mockGetSeasonEpisodes.execute(tId, 1));
+      },
+    );
+
+    blocTest<TvSeriesDetailBloc, TvSeriesDetailState>(
+      'emits error message when GetSeasonEpisodes fails',
+      build: () {
+        when(
+          mockGetSeasonEpisodes.execute(tId, 1),
+        ).thenAnswer((_) async => Left(ServerFailure('Server Failure')));
+        return tvSeriesDetailBloc;
+      },
+      act: (bloc) => bloc.add(const OnGetTvSeriesSeasons(tId, 1)),
+      expect: () => [
+        const TvSeriesDetailState(
+          tvSeriesSeasonState: RequestState.Loading,
+        ),
+        const TvSeriesDetailState(
+          message: 'Server Failure',
+          tvSeriesSeasonState: RequestState.Error,
+        ),
+      ],
+      verify: (_) {
+        verify(mockGetSeasonEpisodes.execute(tId, 1));
+      },
+    );
+  });
 }

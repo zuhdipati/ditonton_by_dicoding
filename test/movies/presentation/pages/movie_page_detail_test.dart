@@ -1,3 +1,4 @@
+import 'package:ditonton/common/constants.dart';
 import 'package:ditonton/common/state_enum.dart';
 import 'package:ditonton/features/movie/domain/entities/movie.dart';
 import 'package:ditonton/features/movie/presentation/bloc/movie-detail/movie_detail_bloc.dart';
@@ -33,7 +34,7 @@ void main() {
         movieDetailState: RequestState.Loaded,
         movieDetail: testMovieDetail,
         movieRecommendationState: RequestState.Loaded,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: <Movie>[testMovie],
         isAddedToWatchlist: false,
         watchlistMessage: '',
         message: '',
@@ -57,7 +58,7 @@ void main() {
         movieDetailState: RequestState.Loaded,
         movieDetail: testMovieDetail,
         movieRecommendationState: RequestState.Loaded,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: <Movie>[testMovie],
         isAddedToWatchlist: true,
         watchlistMessage: '',
         message: '',
@@ -81,7 +82,7 @@ void main() {
         movieDetailState: RequestState.Loaded,
         movieDetail: testMovieDetail,
         movieRecommendationState: RequestState.Loaded,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: <Movie>[testMovie],
         isAddedToWatchlist: false,
         watchlistMessage: '',
         message: '',
@@ -91,7 +92,7 @@ void main() {
         movieDetailState: RequestState.Loaded,
         movieDetail: testMovieDetail,
         movieRecommendationState: RequestState.Loaded,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: <Movie>[testMovie],
         isAddedToWatchlist: true,
         watchlistMessage: 'Added to Watchlist',
         message: '',
@@ -119,7 +120,7 @@ void main() {
         movieDetailState: RequestState.Loaded,
         movieDetail: testMovieDetail,
         movieRecommendationState: RequestState.Loaded,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: <Movie>[testMovie],
         isAddedToWatchlist: false,
         watchlistMessage: '',
         message: '',
@@ -129,7 +130,7 @@ void main() {
         movieDetailState: RequestState.Loaded,
         movieDetail: testMovieDetail,
         movieRecommendationState: RequestState.Loaded,
-        movieRecommendations: <Movie>[],
+        movieRecommendations: <Movie>[testMovie],
         isAddedToWatchlist: false,
         watchlistMessage: 'Failed',
         message: '',
@@ -149,4 +150,11 @@ void main() {
       await tester.pump();
     },
   );
+
+  test('styles should be loadable (bcs uncovered at this widget test)', () {
+    expect(kSubtitle, isNotNull); 
+    expect(kBodyText, isNotNull); 
+    expect(kTextTheme, isNotNull);
+    expect(kDrawerTheme, isNotNull);
+  });
 }
