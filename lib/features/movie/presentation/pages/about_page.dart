@@ -24,6 +24,7 @@ class AboutPage extends StatelessWidget {
                   padding: const EdgeInsets.all(32.0),
                   color: kMikadoYellow,
                   child: Text(
+                    key: const Key('about_text'),
                     'Ditonton merupakan sebuah aplikasi katalog film yang dikembangkan oleh Dicoding Indonesia sebagai contoh proyek aplikasi untuk kelas Menjadi Flutter Developer Expert.',
                     style: TextStyle(color: Colors.black87, fontSize: 16),
                     textAlign: TextAlign.justify,
@@ -34,6 +35,7 @@ class AboutPage extends StatelessWidget {
           ),
           SafeArea(
             child: IconButton(
+              key: const Key('about_back_button'),
               onPressed: () => Navigator.pop(context),
               icon: Icon(Icons.arrow_back),
             ),

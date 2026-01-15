@@ -17,6 +17,7 @@ class SearchPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextField(
+              key: const Key('search_textfield'),
               onSubmitted: (query) {
                 context.read<SearchMoviesBloc>().add(OnSearchMovies(query));
               },
@@ -28,7 +29,11 @@ class SearchPage extends StatelessWidget {
               textInputAction: TextInputAction.search,
             ),
             SizedBox(height: 16),
-            Text('Search Result', style: kHeading6),
+            Text(
+              key: const Key('search_result'),
+              'Search Result',
+              style: kHeading6,
+            ),
             BlocBuilder<SearchMoviesBloc, SearchMoviesState>(
               builder: (context, state) {
                 if (state is SearchMoviesLoading) {

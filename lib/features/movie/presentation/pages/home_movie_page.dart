@@ -34,11 +34,15 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
           children: [
             Text('Now Playing', style: kHeading6),
             BlocBuilder<NowPlayingBloc, NowPlayingState>(
+              key: const Key('now_playing_list'),
               builder: (context, state) {
                 if (state is NowPlayingLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                    key: const Key('now_playing_loading'),
+                    child: CircularProgressIndicator(),
+                  );
                 } else if (state is NowPlayingLoaded) {
-                  return MovieList(state.movies);
+                  return MovieList(state.movies, keyPrefix: 'now_playing');
                 } else if (state is NowPlayingError) {
                   return Center(child: Text(state.message));
                 } else {
@@ -56,7 +60,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 if (state is PopularMoviesLoading) {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is PopularMoviesLoaded) {
-                  return MovieList(state.movies);
+                  return MovieList(state.movies, keyPrefix: 'popular');
                 } else if (state is PopularMoviesError) {
                   return Center(child: Text(state.message));
                 } else {
@@ -74,7 +78,7 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
                 if (state is TopRatedLoading) {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is TopRatedLoaded) {
-                  return MovieList(state.movies);
+                  return MovieList(state.movies, keyPrefix: 'top_rated');
                 } else if (state is TopRatedError) {
                   return Center(child: Text(state.message));
                 } else {
@@ -109,8 +113,9 @@ class _HomeMoviePageState extends State<HomeMoviePage> {
 
 class MovieList extends StatelessWidget {
   final List<Movie> movies;
+  final String keyPrefix;
 
-  MovieList(this.movies);
+  MovieList(this.movies, {this.keyPrefix = 'movie'});
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +126,7 @@ class MovieList extends StatelessWidget {
         itemBuilder: (context, index) {
           final movie = movies[index];
           return Container(
+            key: Key('${keyPrefix}_movie_item_$index'),
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {

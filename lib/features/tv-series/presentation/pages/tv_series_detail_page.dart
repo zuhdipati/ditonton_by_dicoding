@@ -58,9 +58,15 @@ class _TvSeriesDetailPageState extends State<TvSeriesDetailPage> {
           final tvSeriesState = state.tvSeriesDetailState;
 
           if (tvSeriesState == RequestState.Loading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              key: const Key('tv_series_detail_loading'),
+              child: CircularProgressIndicator(),
+            );
           } else if (tvSeriesState == RequestState.Error) {
-            return Center(child: Text(state.message));
+            return Center(
+              key: const Key('tv_series_detail_error'),
+              child: Text(state.message),
+            );
           } else if (tvSeriesState == RequestState.Loaded) {
             final tvSeries = state.tvSeriesDetail;
             return SafeArea(
@@ -124,8 +130,15 @@ class TvSeriesDetailContent extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(tvSeries.name, style: kHeading5),
+                            Text(
+                              tvSeries.name,
+                              key: const Key('tv_series_detail_title'),
+                              style: kHeading5,
+                            ),
                             FilledButton(
+                              key: const Key(
+                                'tv_series_detail_watchlist_button',
+                              ),
                               onPressed: () {
                                 if (!isAddedWatchlist) {
                                   context.read<TvSeriesDetailBloc>().add(
@@ -147,9 +160,13 @@ class TvSeriesDetailContent extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Text(_showGenres(tvSeries.genres)),
+                            Text(
+                              _showGenres(tvSeries.genres),
+                              key: const Key('tv_series_detail_genres'),
+                            ),
                             Text(
                               '${tvSeries.numberOfSeasons} Seasons • ${tvSeries.numberOfEpisodes} Episodes',
+                              key: const Key('tv_series_detail_episodes_info'),
                             ),
                             Row(
                               children: [
@@ -160,11 +177,17 @@ class TvSeriesDetailContent extends StatelessWidget {
                                       Icon(Icons.star, color: kMikadoYellow),
                                   itemSize: 24,
                                 ),
-                                Text('${tvSeries.voteAverage}'),
+                                Text(
+                                  '${tvSeries.voteAverage}',
+                                  key: const Key('tv_series_detail_rating'),
+                                ),
                               ],
                             ),
                             SizedBox(height: 16),
                             DropdownButtonFormField<int>(
+                              key: const Key(
+                                'tv_series_detail_season_dropdown',
+                              ),
                               initialValue: 1,
                               onChanged: (value) {
                                 context.read<TvSeriesDetailBloc>().add(
@@ -194,12 +217,23 @@ class TvSeriesDetailContent extends StatelessWidget {
                                 final seasonState = state.tvSeriesSeasonState;
                                 if (seasonState == RequestState.Loading) {
                                   return Center(
+                                    key: const Key(
+                                      'tv_series_detail_seasons_loading',
+                                    ),
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (seasonState == RequestState.Error) {
-                                  return Text(state.message);
+                                  return Text(
+                                    state.message,
+                                    key: const Key(
+                                      'tv_series_detail_seasons_error',
+                                    ),
+                                  );
                                 } else if (seasonState == RequestState.Loaded) {
                                   return SizedBox(
+                                    key: const Key(
+                                      'tv_series_detail_seasons_list',
+                                    ),
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -207,6 +241,9 @@ class TvSeriesDetailContent extends StatelessWidget {
                                         final seasonItem =
                                             state.tvSeriesSeasons[index];
                                         return Padding(
+                                          key: Key(
+                                            'tv_series_detail_season_item_$index',
+                                          ),
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
                                             onTap: () {},
@@ -272,7 +309,10 @@ class TvSeriesDetailContent extends StatelessWidget {
                             ),
                             SizedBox(height: 16),
                             Text('Overview', style: kHeading6),
-                            Text(tvSeries.overview),
+                            Text(
+                              tvSeries.overview,
+                              key: const Key('tv_series_detail_overview'),
+                            ),
                             SizedBox(height: 16),
                             Text('Recommendations', style: kHeading6),
                             BlocBuilder<
@@ -285,14 +325,25 @@ class TvSeriesDetailContent extends StatelessWidget {
                                 if (recommendationState ==
                                     RequestState.Loading) {
                                   return Center(
+                                    key: const Key(
+                                      'tv_series_detail_recommendations_loading',
+                                    ),
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (recommendationState ==
                                     RequestState.Error) {
-                                  return Text(state.message);
+                                  return Text(
+                                    state.message,
+                                    key: const Key(
+                                      'tv_series_detail_recommendations_error',
+                                    ),
+                                  );
                                 } else if (recommendationState ==
                                     RequestState.Loaded) {
                                   return SizedBox(
+                                    key: const Key(
+                                      'tv_series_detail_recommendations_list',
+                                    ),
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -300,6 +351,9 @@ class TvSeriesDetailContent extends StatelessWidget {
                                         final tvSeriesItem = state
                                             .tvSeriesRecommendations[index];
                                         return Padding(
+                                          key: Key(
+                                            'tv_series_detail_recommendation_$index',
+                                          ),
                                           padding: const EdgeInsets.all(4.0),
                                           child: InkWell(
                                             onTap: () {
@@ -363,6 +417,7 @@ class TvSeriesDetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
+              key: const Key('tv_series_detail_back_button'),
               icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);

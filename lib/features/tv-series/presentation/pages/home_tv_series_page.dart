@@ -34,11 +34,19 @@ class _HomeTvSeriesContentState extends State<HomeTvSeriesContent> {
           children: [
             Text('Airing Today', style: kHeading6),
             BlocBuilder<AiringTodayBloc, AiringTodayState>(
+              key: const Key('airing_today_list'),
               builder: (context, state) {
                 if (state is AiringTodayLoading) {
-                  return Center(child: CircularProgressIndicator());
+                  return Center(
+                    child: CircularProgressIndicator(
+                      key: const Key('airing_today_loading'),
+                    ),
+                  );
                 } else if (state is AiringTodayLoaded) {
-                  return TvSeriesHomeList(state.tvSeriesList);
+                  return TvSeriesHomeList(
+                    state.tvSeriesList,
+                    keyPrefix: 'airing_today',
+                  );
                 } else if (state is AiringTodayError) {
                   return Center(child: Text(state.message));
                 } else {
@@ -56,7 +64,10 @@ class _HomeTvSeriesContentState extends State<HomeTvSeriesContent> {
                 if (state is PopularTvSeriesLoading) {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is PopularTvSeriesLoaded) {
-                  return TvSeriesHomeList(state.tvSeriesList);
+                  return TvSeriesHomeList(
+                    state.tvSeriesList,
+                    keyPrefix: 'popular_tv',
+                  );
                 } else if (state is PopularTvSeriesError) {
                   return Center(child: Text(state.message));
                 } else {
@@ -74,7 +85,10 @@ class _HomeTvSeriesContentState extends State<HomeTvSeriesContent> {
                 if (state is TopRatedTvSeriesLoading) {
                   return Center(child: CircularProgressIndicator());
                 } else if (state is TopRatedTvSeriesLoaded) {
-                  return TvSeriesHomeList(state.tvSeriesList);
+                  return TvSeriesHomeList(
+                    state.tvSeriesList,
+                    keyPrefix: 'top_rated_tv',
+                  );
                 } else if (state is TopRatedTvSeriesError) {
                   return Center(child: Text(state.message));
                 } else {
@@ -109,8 +123,9 @@ class _HomeTvSeriesContentState extends State<HomeTvSeriesContent> {
 
 class TvSeriesHomeList extends StatelessWidget {
   final List<TvSeries> tvSeriesList;
+  final String keyPrefix;
 
-  TvSeriesHomeList(this.tvSeriesList);
+  TvSeriesHomeList(this.tvSeriesList, {this.keyPrefix = 'tv_series'});
 
   @override
   Widget build(BuildContext context) {
@@ -121,6 +136,7 @@ class TvSeriesHomeList extends StatelessWidget {
         itemBuilder: (context, index) {
           final tvSeries = tvSeriesList[index];
           return Container(
+            key: Key('${keyPrefix}_item_$index'),
             padding: const EdgeInsets.all(8),
             child: InkWell(
               onTap: () {

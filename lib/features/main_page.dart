@@ -48,7 +48,7 @@ class _MainPageState extends State<MainPage>
             ),
             ListTile(
               leading: Icon(Icons.movie),
-              title: Text('Movies'),
+              title: Text(key: Key('moviesDrawer'), 'Movies'),
               onTap: () {
                 Navigator.pop(context);
                 _tabController.animateTo(0);
@@ -56,7 +56,7 @@ class _MainPageState extends State<MainPage>
             ),
             ListTile(
               leading: Icon(Icons.tv),
-              title: Text('TV Series'),
+              title: Text(key: Key('tvSeriesDrawer'), 'TV Series'),
               onTap: () {
                 Navigator.pop(context);
                 _tabController.animateTo(1);
@@ -64,14 +64,14 @@ class _MainPageState extends State<MainPage>
             ),
             ListTile(
               leading: Icon(Icons.save_alt),
-              title: Text('Watchlist Movies'),
+              title: Text(key: Key('watchlistMoviesDrawer'), 'Watchlist Movies'),
               onTap: () {
                 Navigator.pushNamed(context, WatchlistMoviesPage.ROUTE_NAME);
               },
             ),
             ListTile(
               leading: Icon(Icons.save_alt),
-              title: Text('Watchlist TV Series'),
+              title: Text(key: Key('watchlistTvSeriesDrawer'), 'Watchlist TV Series'),
               onTap: () {
                 Navigator.pushNamed(context, WatchlistTvSeriesPage.ROUTE_NAME);
               },
@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage>
                 Navigator.pushNamed(context, AboutPage.ROUTE_NAME);
               },
               leading: Icon(Icons.info_outline),
-              title: Text('About'),
+              title: Text(key: Key('aboutDrawer'), 'About'),
             ),
           ],
         ),

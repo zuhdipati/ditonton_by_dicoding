@@ -56,9 +56,15 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
           final movieState = state.movieDetailState;
 
           if (movieState == RequestState.Loading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+              key: const Key('movie_detail_loading'),
+              child: CircularProgressIndicator(),
+            );
           } else if (movieState == RequestState.Error) {
-            return Center(child: Text(state.message));
+            return Center(
+              key: const Key('movie_detail_error'),
+              child: Text(state.message),
+            );
           } else if (movieState == RequestState.Loaded) {
             final movie = state.movieDetail;
             return SafeArea(
@@ -115,8 +121,13 @@ class DetailContent extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(movie.title, style: kHeading5),
+                            Text(
+                              movie.title,
+                              key: const Key('movie_detail_title'),
+                              style: kHeading5,
+                            ),
                             FilledButton(
+                              key: const Key('movie_detail_watchlist_button'),
                               onPressed: () {
                                 if (!isAddedWatchlist) {
                                   context.read<MovieDetailBloc>().add(
@@ -138,8 +149,14 @@ class DetailContent extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            Text(_showGenres(movie.genres)),
-                            Text(_showDuration(movie.runtime)),
+                            Text(
+                              _showGenres(movie.genres),
+                              key: const Key('movie_detail_genres'),
+                            ),
+                            Text(
+                              _showDuration(movie.runtime),
+                              key: const Key('movie_detail_duration'),
+                            ),
                             Row(
                               children: [
                                 RatingBarIndicator(
@@ -149,12 +166,18 @@ class DetailContent extends StatelessWidget {
                                       Icon(Icons.star, color: kMikadoYellow),
                                   itemSize: 24,
                                 ),
-                                Text('${movie.voteAverage}'),
+                                Text(
+                                  '${movie.voteAverage}',
+                                  key: const Key('movie_detail_rating'),
+                                ),
                               ],
                             ),
                             SizedBox(height: 16),
                             Text('Overview', style: kHeading6),
-                            Text(movie.overview),
+                            Text(
+                              movie.overview,
+                              key: const Key('movie_detail_overview'),
+                            ),
                             SizedBox(height: 16),
                             Text('Recommendations', style: kHeading6),
                             BlocBuilder<MovieDetailBloc, MovieDetailState>(
@@ -164,14 +187,25 @@ class DetailContent extends StatelessWidget {
                                 if (recommendationState ==
                                     RequestState.Loading) {
                                   return Center(
+                                    key: const Key(
+                                      'movie_detail_recommendations_loading',
+                                    ),
                                     child: CircularProgressIndicator(),
                                   );
                                 } else if (recommendationState ==
                                     RequestState.Error) {
-                                  return Center(child: Text(state.message));
+                                  return Center(
+                                    key: const Key(
+                                      'movie_detail_recommendations_error',
+                                    ),
+                                    child: Text(state.message),
+                                  );
                                 } else if (recommendationState ==
                                     RequestState.Loaded) {
                                   return SizedBox(
+                                    key: const Key(
+                                      'movie_detail_recommendations_list',
+                                    ),
                                     height: 150,
                                     child: ListView.builder(
                                       scrollDirection: Axis.horizontal,
@@ -181,6 +215,9 @@ class DetailContent extends StatelessWidget {
                                         final movie =
                                             state.movieRecommendations[index];
                                         return Container(
+                                          key: Key(
+                                            'movie_detail_recommendation_$index',
+                                          ),
                                           margin: const EdgeInsets.all(8),
                                           child: InkWell(
                                             onTap: () {
@@ -241,6 +278,7 @@ class DetailContent extends StatelessWidget {
             backgroundColor: kRichBlack,
             foregroundColor: Colors.white,
             child: IconButton(
+              key: const Key('movie_detail_back_button'),
               icon: Icon(Icons.arrow_back),
               onPressed: () {
                 Navigator.pop(context);
